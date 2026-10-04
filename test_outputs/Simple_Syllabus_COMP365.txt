@@ -1,0 +1,87 @@
+COMP365: AI and Machine Learning
+================================
+
+Source: Simple_Syllabus_COMP365.pdf
+Course prerequisites: COMP285
+
+COURSE DESCRIPTION
+This course discusses the theory and applications of artificial intelligence with a
+focus on machine learning. It covers the concepts related to search, knowledge
+representation, logical reasoning, supervised learning and unsupervised learning. Also,
+students will write computer programs implementing artificial intelligence and machine
+learning concepts. Prerequisites: COMP 285. (Minimum grade of C- required.) (F;S;SS)
+
+Topic source: Student Learning Objectives/Outcomes (SLO)
+Plan: 15 weeks; maximum 6 study hours/week.
+
+ASSUMPTIONS
+- Study effort defaults to 3 hours per item unless explicitly stated.
+- Dependency edges infer source order; the syllabus does not specify topic
+  prerequisites.
+- No dated course outline was found; this is a suggested outcome-based study plan over
+  an assumed 15-week horizon, not the instructor's calendar.
+
+MODEL COMPARISON
+Baseline:
+  Prerequisite inversion rate: 0.00%
+  Weekly workload standard deviation: 2.10 hours
+Autostudy:
+  Prerequisite inversion rate: 0.00%
+  Weekly workload standard deviation: 2.10 hours
+These metrics use inferred source-order edges. Equal results do not establish a model
+advantage.
+
+STUDY SCHEDULE
+
+Week 01 (6 study hours)
+  - Explain foundational concepts in artificial intelligence and machine learning. (3
+    hours)
+  - Apply search and reasoning methods to solve computational problems. (3 hours)
+
+Week 02 (6 study hours)
+  - Build and evaluate machine learning models using appropriate data and methods. (3
+    hours)
+  - Develop software that applies modern AI techniques. (3 hours)
+
+Week 03 (3 study hours)
+  - Communicate and evaluate AI solutions through individual and team-based work. (3
+    hours)
+
+Week 04 (0 study hours)
+  No study items assigned.
+
+Week 05 (0 study hours)
+  No study items assigned.
+
+Week 06 (0 study hours)
+  No study items assigned.
+
+Week 07 (0 study hours)
+  No study items assigned.
+
+Week 08 (0 study hours)
+  No study items assigned.
+
+Week 09 (0 study hours)
+  No study items assigned.
+
+Week 10 (0 study hours)
+  No study items assigned.
+
+Week 11 (0 study hours)
+  No study items assigned.
+
+Week 12 (0 study hours)
+  No study items assigned.
+
+Week 13 (0 study hours)
+  No study items assigned.
+
+Week 14 (0 study hours)
+  No study items assigned.
+
+Week 15 (0 study hours)
+  No study items assigned.
+
+EXAM AND HOMEWORK CALENDAR
+No dated milestones found. Check the course LMS for due dates.

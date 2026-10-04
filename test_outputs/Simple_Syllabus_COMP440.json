@@ -1,0 +1,185 @@
+{
+  "source_file": "Simple_Syllabus_COMP440.pdf",
+  "course_code": "COMP440",
+  "course_title": "Game Design",
+  "course_description": "This course will provide an introduction to current techniques used in game design.Topics will include game engines, game mechanics, autonomous game agents, and multi-player games. Prerequisites: COMP 285. (F;S;SS)",
+  "course_prerequisites": [
+    "COMP285"
+  ],
+  "topic_source": "Student Learning Objectives/Outcomes (SLO)",
+  "topics": [
+    {
+      "topic_id": "COMP440_T01",
+      "title": "Develop game design vocabulary for talking about games and their play",
+      "estimated_hours": 3.0,
+      "deadline_week": 15,
+      "raw_order": 1,
+      "source_section": "Student Learning Objectives/Outcomes (SLO)",
+      "source_date": null
+    },
+    {
+      "topic_id": "COMP440_T02",
+      "title": "Put into practice the basic tools of game design.",
+      "estimated_hours": 3.0,
+      "deadline_week": 15,
+      "raw_order": 2,
+      "source_section": "Student Learning Objectives/Outcomes (SLO)",
+      "source_date": null
+    },
+    {
+      "topic_id": "COMP440_T03",
+      "title": "Understand the demands gameplay makes on players",
+      "estimated_hours": 3.0,
+      "deadline_week": 15,
+      "raw_order": 3,
+      "source_section": "Student Learning Objectives/Outcomes (SLO)",
+      "source_date": null
+    },
+    {
+      "topic_id": "COMP440_T04",
+      "title": "Experience the iterative game design process.",
+      "estimated_hours": 3.0,
+      "deadline_week": 15,
+      "raw_order": 4,
+      "source_section": "Student Learning Objectives/Outcomes (SLO)",
+      "source_date": null
+    },
+    {
+      "topic_id": "COMP440_T05",
+      "title": "Develop critical thinking skills related to the analysis of games and play",
+      "estimated_hours": 3.0,
+      "deadline_week": 15,
+      "raw_order": 5,
+      "source_section": "Student Learning Objectives/Outcomes (SLO)",
+      "source_date": null
+    }
+  ],
+  "prerequisites": [
+    [
+      "COMP440_T01",
+      "COMP440_T02"
+    ],
+    [
+      "COMP440_T02",
+      "COMP440_T03"
+    ],
+    [
+      "COMP440_T03",
+      "COMP440_T04"
+    ],
+    [
+      "COMP440_T04",
+      "COMP440_T05"
+    ]
+  ],
+  "milestones": [],
+  "total_weeks": 15,
+  "start_date": null,
+  "end_date": null,
+  "assumptions": [
+    "Study effort defaults to 3 hours per item unless explicitly stated.",
+    "Dependency edges infer source order; the syllabus does not specify topic prerequisites.",
+    "No dated course outline was found; this is a suggested outcome-based study plan over an assumed 15-week horizon, not the instructor's calendar."
+  ],
+  "weekly_capacity_hours": 6.0,
+  "baseline_schedule": {
+    "1": [
+      {
+        "topic_id": "COMP440_T01",
+        "title": "Develop game design vocabulary for talking about games and their play",
+        "hours": 3.0
+      },
+      {
+        "topic_id": "COMP440_T02",
+        "title": "Put into practice the basic tools of game design.",
+        "hours": 3.0
+      }
+    ],
+    "2": [
+      {
+        "topic_id": "COMP440_T03",
+        "title": "Understand the demands gameplay makes on players",
+        "hours": 3.0
+      },
+      {
+        "topic_id": "COMP440_T04",
+        "title": "Experience the iterative game design process.",
+        "hours": 3.0
+      }
+    ],
+    "3": [
+      {
+        "topic_id": "COMP440_T05",
+        "title": "Develop critical thinking skills related to the analysis of games and play",
+        "hours": 3.0
+      }
+    ],
+    "4": [],
+    "5": [],
+    "6": [],
+    "7": [],
+    "8": [],
+    "9": [],
+    "10": [],
+    "11": [],
+    "12": [],
+    "13": [],
+    "14": [],
+    "15": []
+  },
+  "study_schedule": {
+    "1": [
+      {
+        "topic_id": "COMP440_T01",
+        "title": "Develop game design vocabulary for talking about games and their play",
+        "hours": 3.0
+      },
+      {
+        "topic_id": "COMP440_T02",
+        "title": "Put into practice the basic tools of game design.",
+        "hours": 3.0
+      }
+    ],
+    "2": [
+      {
+        "topic_id": "COMP440_T03",
+        "title": "Understand the demands gameplay makes on players",
+        "hours": 3.0
+      },
+      {
+        "topic_id": "COMP440_T04",
+        "title": "Experience the iterative game design process.",
+        "hours": 3.0
+      }
+    ],
+    "3": [
+      {
+        "topic_id": "COMP440_T05",
+        "title": "Develop critical thinking skills related to the analysis of games and play",
+        "hours": 3.0
+      }
+    ],
+    "4": [],
+    "5": [],
+    "6": [],
+    "7": [],
+    "8": [],
+    "9": [],
+    "10": [],
+    "11": [],
+    "12": [],
+    "13": [],
+    "14": [],
+    "15": []
+  },
+  "metrics": {
+    "baseline": {
+      "prerequisite_inversion_rate": 0.0,
+      "workload_standard_deviation_hours": 2.0976176963403033
+    },
+    "autostudy": {
+      "prerequisite_inversion_rate": 0.0,
+      "workload_standard_deviation_hours": 2.0976176963403033
+    }
+  }
+}

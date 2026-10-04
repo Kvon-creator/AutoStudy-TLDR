@@ -1,0 +1,776 @@
+{
+  "source_file": "Simple_Syllabus_COMP385.pdf",
+  "course_code": "COMP385",
+  "course_title": "Theory of Computing",
+  "course_description": "This course is the study of topics that include the theory of finite state machines and automata; regular expressions; Turing machines; grammars; parsing; the language hierarchy; machine design and construction; computability; insolvability; and the halting problem. The course also discusses issuses in the equivalence of various computational models and characterizations. Prerequisites: COMP 360.(F;S;SS)",
+  "course_prerequisites": [
+    "COMP360"
+  ],
+  "topic_source": "Class Schedule",
+  "topics": [
+    {
+      "topic_id": "COMP385_T01",
+      "title": "Course Overview, Basics Concepts",
+      "estimated_hours": 3.0,
+      "deadline_week": 1,
+      "raw_order": 1,
+      "source_section": "Class Schedule",
+      "source_date": "2026-08-20"
+    },
+    {
+      "topic_id": "COMP385_T02",
+      "title": "Mathematical Preliminaries and Notation, Basic Concepts",
+      "estimated_hours": 3.0,
+      "deadline_week": 1,
+      "raw_order": 2,
+      "source_section": "Class Schedule",
+      "source_date": "2026-08-25"
+    },
+    {
+      "topic_id": "COMP385_T03",
+      "title": "Deterministic finite automata (DFA)",
+      "estimated_hours": 3.0,
+      "deadline_week": 2,
+      "raw_order": 3,
+      "source_section": "Class Schedule",
+      "source_date": "2026-08-27"
+    },
+    {
+      "topic_id": "COMP385_T04",
+      "title": "Regular Languages",
+      "estimated_hours": 3.0,
+      "deadline_week": 2,
+      "raw_order": 4,
+      "source_section": "Class Schedule",
+      "source_date": "2026-09-01"
+    },
+    {
+      "topic_id": "COMP385_T05",
+      "title": "Non-deterministic finite automata (NFA)",
+      "estimated_hours": 3.0,
+      "deadline_week": 3,
+      "raw_order": 5,
+      "source_section": "Class Schedule",
+      "source_date": "2026-09-03"
+    },
+    {
+      "topic_id": "COMP385_T06",
+      "title": "Pumping Lemma",
+      "estimated_hours": 3.0,
+      "deadline_week": 3,
+      "raw_order": 6,
+      "source_section": "Class Schedule",
+      "source_date": "2026-09-08"
+    },
+    {
+      "topic_id": "COMP385_T07",
+      "title": "Pumping Lemma",
+      "estimated_hours": 3.0,
+      "deadline_week": 4,
+      "raw_order": 7,
+      "source_section": "Class Schedule",
+      "source_date": "2026-09-10"
+    },
+    {
+      "topic_id": "COMP385_T08",
+      "title": "Context-free Languages",
+      "estimated_hours": 3.0,
+      "deadline_week": 4,
+      "raw_order": 8,
+      "source_section": "Class Schedule",
+      "source_date": "2026-09-15"
+    },
+    {
+      "topic_id": "COMP385_T09",
+      "title": "Context-free Languages",
+      "estimated_hours": 3.0,
+      "deadline_week": 5,
+      "raw_order": 9,
+      "source_section": "Class Schedule",
+      "source_date": "2026-09-17"
+    },
+    {
+      "topic_id": "COMP385_T10",
+      "title": "PDA=CFL",
+      "estimated_hours": 3.0,
+      "deadline_week": 5,
+      "raw_order": 10,
+      "source_section": "Class Schedule",
+      "source_date": "2026-09-22"
+    },
+    {
+      "topic_id": "COMP385_T11",
+      "title": "Decidability",
+      "estimated_hours": 3.0,
+      "deadline_week": 6,
+      "raw_order": 11,
+      "source_section": "Class Schedule",
+      "source_date": "2026-09-24"
+    },
+    {
+      "topic_id": "COMP385_T12",
+      "title": "Decidability",
+      "estimated_hours": 3.0,
+      "deadline_week": 6,
+      "raw_order": 12,
+      "source_section": "Class Schedule",
+      "source_date": "2026-09-29"
+    },
+    {
+      "topic_id": "COMP385_T13",
+      "title": "Undecidability",
+      "estimated_hours": 3.0,
+      "deadline_week": 7,
+      "raw_order": 13,
+      "source_section": "Class Schedule",
+      "source_date": "2026-10-01"
+    },
+    {
+      "topic_id": "COMP385_T14",
+      "title": "Undecidability",
+      "estimated_hours": 3.0,
+      "deadline_week": 8,
+      "raw_order": 14,
+      "source_section": "Class Schedule",
+      "source_date": "2026-10-08"
+    },
+    {
+      "topic_id": "COMP385_T15",
+      "title": "Reducibility",
+      "estimated_hours": 3.0,
+      "deadline_week": 9,
+      "raw_order": 15,
+      "source_section": "Class Schedule",
+      "source_date": "2026-10-15"
+    },
+    {
+      "topic_id": "COMP385_T16",
+      "title": "Reducibility",
+      "estimated_hours": 3.0,
+      "deadline_week": 9,
+      "raw_order": 16,
+      "source_section": "Class Schedule",
+      "source_date": "2026-10-20"
+    },
+    {
+      "topic_id": "COMP385_T17",
+      "title": "Time Complexity",
+      "estimated_hours": 3.0,
+      "deadline_week": 10,
+      "raw_order": 17,
+      "source_section": "Class Schedule",
+      "source_date": "2026-10-22"
+    },
+    {
+      "topic_id": "COMP385_T18",
+      "title": "Dynamic Programming",
+      "estimated_hours": 3.0,
+      "deadline_week": 10,
+      "raw_order": 18,
+      "source_section": "Class Schedule",
+      "source_date": "2026-10-27"
+    },
+    {
+      "topic_id": "COMP385_T19",
+      "title": "Dynamic Programming",
+      "estimated_hours": 3.0,
+      "deadline_week": 11,
+      "raw_order": 19,
+      "source_section": "Class Schedule",
+      "source_date": "2026-10-29"
+    },
+    {
+      "topic_id": "COMP385_T20",
+      "title": "Class NP",
+      "estimated_hours": 3.0,
+      "deadline_week": 11,
+      "raw_order": 20,
+      "source_section": "Class Schedule",
+      "source_date": "2026-11-03"
+    },
+    {
+      "topic_id": "COMP385_T21",
+      "title": "Class NP",
+      "estimated_hours": 3.0,
+      "deadline_week": 12,
+      "raw_order": 21,
+      "source_section": "Class Schedule",
+      "source_date": "2026-11-05"
+    },
+    {
+      "topic_id": "COMP385_T22",
+      "title": "NP-C Problems",
+      "estimated_hours": 3.0,
+      "deadline_week": 13,
+      "raw_order": 22,
+      "source_section": "Class Schedule",
+      "source_date": "2026-11-12"
+    },
+    {
+      "topic_id": "COMP385_T23",
+      "title": "NP-C Problems",
+      "estimated_hours": 3.0,
+      "deadline_week": 13,
+      "raw_order": 23,
+      "source_section": "Class Schedule",
+      "source_date": "2026-11-17"
+    },
+    {
+      "topic_id": "COMP385_T24",
+      "title": "Polynomial Reduction",
+      "estimated_hours": 3.0,
+      "deadline_week": 14,
+      "raw_order": 24,
+      "source_section": "Class Schedule",
+      "source_date": "2026-11-19"
+    },
+    {
+      "topic_id": "COMP385_T25",
+      "title": "Polynomial Reduction",
+      "estimated_hours": 3.0,
+      "deadline_week": 14,
+      "raw_order": 25,
+      "source_section": "Class Schedule",
+      "source_date": "2026-11-24"
+    },
+    {
+      "topic_id": "COMP385_T26",
+      "title": "Solve NP-C Problems",
+      "estimated_hours": 3.0,
+      "deadline_week": 15,
+      "raw_order": 26,
+      "source_section": "Class Schedule",
+      "source_date": "2026-12-01"
+    },
+    {
+      "topic_id": "COMP385_T27",
+      "title": "Solve NP-C Problems",
+      "estimated_hours": 3.0,
+      "deadline_week": 16,
+      "raw_order": 27,
+      "source_section": "Class Schedule",
+      "source_date": "2026-12-03"
+    }
+  ],
+  "prerequisites": [
+    [
+      "COMP385_T01",
+      "COMP385_T02"
+    ],
+    [
+      "COMP385_T02",
+      "COMP385_T03"
+    ],
+    [
+      "COMP385_T03",
+      "COMP385_T04"
+    ],
+    [
+      "COMP385_T04",
+      "COMP385_T05"
+    ],
+    [
+      "COMP385_T05",
+      "COMP385_T06"
+    ],
+    [
+      "COMP385_T06",
+      "COMP385_T07"
+    ],
+    [
+      "COMP385_T07",
+      "COMP385_T08"
+    ],
+    [
+      "COMP385_T08",
+      "COMP385_T09"
+    ],
+    [
+      "COMP385_T09",
+      "COMP385_T10"
+    ],
+    [
+      "COMP385_T10",
+      "COMP385_T11"
+    ],
+    [
+      "COMP385_T11",
+      "COMP385_T12"
+    ],
+    [
+      "COMP385_T12",
+      "COMP385_T13"
+    ],
+    [
+      "COMP385_T13",
+      "COMP385_T14"
+    ],
+    [
+      "COMP385_T14",
+      "COMP385_T15"
+    ],
+    [
+      "COMP385_T15",
+      "COMP385_T16"
+    ],
+    [
+      "COMP385_T16",
+      "COMP385_T17"
+    ],
+    [
+      "COMP385_T17",
+      "COMP385_T18"
+    ],
+    [
+      "COMP385_T18",
+      "COMP385_T19"
+    ],
+    [
+      "COMP385_T19",
+      "COMP385_T20"
+    ],
+    [
+      "COMP385_T20",
+      "COMP385_T21"
+    ],
+    [
+      "COMP385_T21",
+      "COMP385_T22"
+    ],
+    [
+      "COMP385_T22",
+      "COMP385_T23"
+    ],
+    [
+      "COMP385_T23",
+      "COMP385_T24"
+    ],
+    [
+      "COMP385_T24",
+      "COMP385_T25"
+    ],
+    [
+      "COMP385_T25",
+      "COMP385_T26"
+    ],
+    [
+      "COMP385_T26",
+      "COMP385_T27"
+    ]
+  ],
+  "milestones": [
+    {
+      "title": "HW1",
+      "date": "2026-08-27",
+      "kind": "scheduled homework",
+      "note": "Listed on this class date; not confirmed as a due date."
+    },
+    {
+      "title": "HW2",
+      "date": "2026-09-08",
+      "kind": "scheduled homework",
+      "note": "Listed on this class date; not confirmed as a due date."
+    },
+    {
+      "title": "HW3",
+      "date": "2026-09-17",
+      "kind": "scheduled homework",
+      "note": "Listed on this class date; not confirmed as a due date."
+    },
+    {
+      "title": "HW4",
+      "date": "2026-09-29",
+      "kind": "scheduled homework",
+      "note": "Listed on this class date; not confirmed as a due date."
+    },
+    {
+      "title": "Midterm Exam In-class exam",
+      "date": "2026-10-06",
+      "kind": "exam"
+    },
+    {
+      "title": "HW5",
+      "date": "2026-10-22",
+      "kind": "scheduled homework",
+      "note": "Listed on this class date; not confirmed as a due date."
+    },
+    {
+      "title": "HW6",
+      "date": "2026-11-03",
+      "kind": "scheduled homework",
+      "note": "Listed on this class date; not confirmed as a due date."
+    },
+    {
+      "title": "HW7",
+      "date": "2026-11-17",
+      "kind": "scheduled homework",
+      "note": "Listed on this class date; not confirmed as a due date."
+    },
+    {
+      "title": "HW8",
+      "date": "2026-12-01",
+      "kind": "scheduled homework",
+      "note": "Listed on this class date; not confirmed as a due date."
+    },
+    {
+      "title": "Final Exam 2 pm – 4 pm",
+      "date": "2026-12-10",
+      "kind": "exam"
+    }
+  ],
+  "total_weeks": 17,
+  "start_date": "2026-08-20",
+  "end_date": "2026-12-10",
+  "assumptions": [
+    "Study effort defaults to 3 hours per item unless explicitly stated.",
+    "Dependency edges infer source order; the syllabus does not specify topic prerequisites.",
+    "Weeks are seven-day periods starting at the first class date. Scheduled class dates act as study deadlines."
+  ],
+  "weekly_capacity_hours": 6.0,
+  "baseline_schedule": {
+    "1": [
+      {
+        "topic_id": "COMP385_T01",
+        "title": "Course Overview, Basics Concepts",
+        "hours": 3.0
+      },
+      {
+        "topic_id": "COMP385_T02",
+        "title": "Mathematical Preliminaries and Notation, Basic Concepts",
+        "hours": 3.0
+      }
+    ],
+    "2": [
+      {
+        "topic_id": "COMP385_T03",
+        "title": "Deterministic finite automata (DFA)",
+        "hours": 3.0
+      },
+      {
+        "topic_id": "COMP385_T04",
+        "title": "Regular Languages",
+        "hours": 3.0
+      }
+    ],
+    "3": [
+      {
+        "topic_id": "COMP385_T05",
+        "title": "Non-deterministic finite automata (NFA)",
+        "hours": 3.0
+      },
+      {
+        "topic_id": "COMP385_T06",
+        "title": "Pumping Lemma",
+        "hours": 3.0
+      }
+    ],
+    "4": [
+      {
+        "topic_id": "COMP385_T07",
+        "title": "Pumping Lemma",
+        "hours": 3.0
+      },
+      {
+        "topic_id": "COMP385_T08",
+        "title": "Context-free Languages",
+        "hours": 3.0
+      }
+    ],
+    "5": [
+      {
+        "topic_id": "COMP385_T09",
+        "title": "Context-free Languages",
+        "hours": 3.0
+      },
+      {
+        "topic_id": "COMP385_T10",
+        "title": "PDA=CFL",
+        "hours": 3.0
+      }
+    ],
+    "6": [
+      {
+        "topic_id": "COMP385_T11",
+        "title": "Decidability",
+        "hours": 3.0
+      },
+      {
+        "topic_id": "COMP385_T12",
+        "title": "Decidability",
+        "hours": 3.0
+      }
+    ],
+    "7": [
+      {
+        "topic_id": "COMP385_T13",
+        "title": "Undecidability",
+        "hours": 3.0
+      },
+      {
+        "topic_id": "COMP385_T14",
+        "title": "Undecidability",
+        "hours": 3.0
+      }
+    ],
+    "8": [
+      {
+        "topic_id": "COMP385_T15",
+        "title": "Reducibility",
+        "hours": 3.0
+      },
+      {
+        "topic_id": "COMP385_T16",
+        "title": "Reducibility",
+        "hours": 3.0
+      }
+    ],
+    "9": [
+      {
+        "topic_id": "COMP385_T17",
+        "title": "Time Complexity",
+        "hours": 3.0
+      },
+      {
+        "topic_id": "COMP385_T18",
+        "title": "Dynamic Programming",
+        "hours": 3.0
+      }
+    ],
+    "10": [
+      {
+        "topic_id": "COMP385_T19",
+        "title": "Dynamic Programming",
+        "hours": 3.0
+      },
+      {
+        "topic_id": "COMP385_T20",
+        "title": "Class NP",
+        "hours": 3.0
+      }
+    ],
+    "11": [
+      {
+        "topic_id": "COMP385_T21",
+        "title": "Class NP",
+        "hours": 3.0
+      },
+      {
+        "topic_id": "COMP385_T22",
+        "title": "NP-C Problems",
+        "hours": 3.0
+      }
+    ],
+    "12": [
+      {
+        "topic_id": "COMP385_T23",
+        "title": "NP-C Problems",
+        "hours": 3.0
+      },
+      {
+        "topic_id": "COMP385_T24",
+        "title": "Polynomial Reduction",
+        "hours": 3.0
+      }
+    ],
+    "13": [
+      {
+        "topic_id": "COMP385_T25",
+        "title": "Polynomial Reduction",
+        "hours": 3.0
+      },
+      {
+        "topic_id": "COMP385_T26",
+        "title": "Solve NP-C Problems",
+        "hours": 3.0
+      }
+    ],
+    "14": [
+      {
+        "topic_id": "COMP385_T27",
+        "title": "Solve NP-C Problems",
+        "hours": 3.0
+      }
+    ],
+    "15": [],
+    "16": [],
+    "17": []
+  },
+  "study_schedule": {
+    "1": [
+      {
+        "topic_id": "COMP385_T01",
+        "title": "Course Overview, Basics Concepts",
+        "hours": 3.0
+      },
+      {
+        "topic_id": "COMP385_T02",
+        "title": "Mathematical Preliminaries and Notation, Basic Concepts",
+        "hours": 3.0
+      }
+    ],
+    "2": [
+      {
+        "topic_id": "COMP385_T03",
+        "title": "Deterministic finite automata (DFA)",
+        "hours": 3.0
+      },
+      {
+        "topic_id": "COMP385_T04",
+        "title": "Regular Languages",
+        "hours": 3.0
+      }
+    ],
+    "3": [
+      {
+        "topic_id": "COMP385_T05",
+        "title": "Non-deterministic finite automata (NFA)",
+        "hours": 3.0
+      },
+      {
+        "topic_id": "COMP385_T06",
+        "title": "Pumping Lemma",
+        "hours": 3.0
+      }
+    ],
+    "4": [
+      {
+        "topic_id": "COMP385_T07",
+        "title": "Pumping Lemma",
+        "hours": 3.0
+      },
+      {
+        "topic_id": "COMP385_T08",
+        "title": "Context-free Languages",
+        "hours": 3.0
+      }
+    ],
+    "5": [
+      {
+        "topic_id": "COMP385_T09",
+        "title": "Context-free Languages",
+        "hours": 3.0
+      },
+      {
+        "topic_id": "COMP385_T10",
+        "title": "PDA=CFL",
+        "hours": 3.0
+      }
+    ],
+    "6": [
+      {
+        "topic_id": "COMP385_T11",
+        "title": "Decidability",
+        "hours": 3.0
+      },
+      {
+        "topic_id": "COMP385_T12",
+        "title": "Decidability",
+        "hours": 3.0
+      }
+    ],
+    "7": [
+      {
+        "topic_id": "COMP385_T13",
+        "title": "Undecidability",
+        "hours": 3.0
+      },
+      {
+        "topic_id": "COMP385_T14",
+        "title": "Undecidability",
+        "hours": 3.0
+      }
+    ],
+    "8": [
+      {
+        "topic_id": "COMP385_T15",
+        "title": "Reducibility",
+        "hours": 3.0
+      },
+      {
+        "topic_id": "COMP385_T16",
+        "title": "Reducibility",
+        "hours": 3.0
+      }
+    ],
+    "9": [
+      {
+        "topic_id": "COMP385_T17",
+        "title": "Time Complexity",
+        "hours": 3.0
+      },
+      {
+        "topic_id": "COMP385_T18",
+        "title": "Dynamic Programming",
+        "hours": 3.0
+      }
+    ],
+    "10": [
+      {
+        "topic_id": "COMP385_T19",
+        "title": "Dynamic Programming",
+        "hours": 3.0
+      },
+      {
+        "topic_id": "COMP385_T20",
+        "title": "Class NP",
+        "hours": 3.0
+      }
+    ],
+    "11": [
+      {
+        "topic_id": "COMP385_T21",
+        "title": "Class NP",
+        "hours": 3.0
+      },
+      {
+        "topic_id": "COMP385_T22",
+        "title": "NP-C Problems",
+        "hours": 3.0
+      }
+    ],
+    "12": [
+      {
+        "topic_id": "COMP385_T23",
+        "title": "NP-C Problems",
+        "hours": 3.0
+      },
+      {
+        "topic_id": "COMP385_T24",
+        "title": "Polynomial Reduction",
+        "hours": 3.0
+      }
+    ],
+    "13": [
+      {
+        "topic_id": "COMP385_T25",
+        "title": "Polynomial Reduction",
+        "hours": 3.0
+      },
+      {
+        "topic_id": "COMP385_T26",
+        "title": "Solve NP-C Problems",
+        "hours": 3.0
+      }
+    ],
+    "14": [
+      {
+        "topic_id": "COMP385_T27",
+        "title": "Solve NP-C Problems",
+        "hours": 3.0
+      }
+    ],
+    "15": [],
+    "16": [],
+    "17": []
+  },
+  "metrics": {
+    "baseline": {
+      "prerequisite_inversion_rate": 0.0,
+      "workload_standard_deviation_hours": 2.314390067400706
+    },
+    "autostudy": {
+      "prerequisite_inversion_rate": 0.0,
+      "workload_standard_deviation_hours": 2.314390067400706
+    }
+  }
+}

@@ -1,0 +1,185 @@
+{
+  "source_file": "Simple_Syllabus_COMP365.pdf",
+  "course_code": "COMP365",
+  "course_title": "AI and Machine Learning",
+  "course_description": "This course discusses the theory and applications of artificial intelligence with a focus on machine learning. It covers the concepts related to search, knowledge representation, logical reasoning, supervised learning and unsupervised learning. Also, students will write computer programs implementing artificial intelligence and machine learning concepts. Prerequisites: COMP 285. (Minimum grade of C- required.) (F;S;SS)",
+  "course_prerequisites": [
+    "COMP285"
+  ],
+  "topic_source": "Student Learning Objectives/Outcomes (SLO)",
+  "topics": [
+    {
+      "topic_id": "COMP365_T01",
+      "title": "Explain foundational concepts in artificial intelligence and machine learning.",
+      "estimated_hours": 3.0,
+      "deadline_week": 15,
+      "raw_order": 1,
+      "source_section": "Student Learning Objectives/Outcomes (SLO)",
+      "source_date": null
+    },
+    {
+      "topic_id": "COMP365_T02",
+      "title": "Apply search and reasoning methods to solve computational problems.",
+      "estimated_hours": 3.0,
+      "deadline_week": 15,
+      "raw_order": 2,
+      "source_section": "Student Learning Objectives/Outcomes (SLO)",
+      "source_date": null
+    },
+    {
+      "topic_id": "COMP365_T03",
+      "title": "Build and evaluate machine learning models using appropriate data and methods.",
+      "estimated_hours": 3.0,
+      "deadline_week": 15,
+      "raw_order": 3,
+      "source_section": "Student Learning Objectives/Outcomes (SLO)",
+      "source_date": null
+    },
+    {
+      "topic_id": "COMP365_T04",
+      "title": "Develop software that applies modern AI techniques.",
+      "estimated_hours": 3.0,
+      "deadline_week": 15,
+      "raw_order": 4,
+      "source_section": "Student Learning Objectives/Outcomes (SLO)",
+      "source_date": null
+    },
+    {
+      "topic_id": "COMP365_T05",
+      "title": "Communicate and evaluate AI solutions through individual and team-based work.",
+      "estimated_hours": 3.0,
+      "deadline_week": 15,
+      "raw_order": 5,
+      "source_section": "Student Learning Objectives/Outcomes (SLO)",
+      "source_date": null
+    }
+  ],
+  "prerequisites": [
+    [
+      "COMP365_T01",
+      "COMP365_T02"
+    ],
+    [
+      "COMP365_T02",
+      "COMP365_T03"
+    ],
+    [
+      "COMP365_T03",
+      "COMP365_T04"
+    ],
+    [
+      "COMP365_T04",
+      "COMP365_T05"
+    ]
+  ],
+  "milestones": [],
+  "total_weeks": 15,
+  "start_date": null,
+  "end_date": null,
+  "assumptions": [
+    "Study effort defaults to 3 hours per item unless explicitly stated.",
+    "Dependency edges infer source order; the syllabus does not specify topic prerequisites.",
+    "No dated course outline was found; this is a suggested outcome-based study plan over an assumed 15-week horizon, not the instructor's calendar."
+  ],
+  "weekly_capacity_hours": 6.0,
+  "baseline_schedule": {
+    "1": [
+      {
+        "topic_id": "COMP365_T01",
+        "title": "Explain foundational concepts in artificial intelligence and machine learning.",
+        "hours": 3.0
+      },
+      {
+        "topic_id": "COMP365_T02",
+        "title": "Apply search and reasoning methods to solve computational problems.",
+        "hours": 3.0
+      }
+    ],
+    "2": [
+      {
+        "topic_id": "COMP365_T03",
+        "title": "Build and evaluate machine learning models using appropriate data and methods.",
+        "hours": 3.0
+      },
+      {
+        "topic_id": "COMP365_T04",
+        "title": "Develop software that applies modern AI techniques.",
+        "hours": 3.0
+      }
+    ],
+    "3": [
+      {
+        "topic_id": "COMP365_T05",
+        "title": "Communicate and evaluate AI solutions through individual and team-based work.",
+        "hours": 3.0
+      }
+    ],
+    "4": [],
+    "5": [],
+    "6": [],
+    "7": [],
+    "8": [],
+    "9": [],
+    "10": [],
+    "11": [],
+    "12": [],
+    "13": [],
+    "14": [],
+    "15": []
+  },
+  "study_schedule": {
+    "1": [
+      {
+        "topic_id": "COMP365_T01",
+        "title": "Explain foundational concepts in artificial intelligence and machine learning.",
+        "hours": 3.0
+      },
+      {
+        "topic_id": "COMP365_T02",
+        "title": "Apply search and reasoning methods to solve computational problems.",
+        "hours": 3.0
+      }
+    ],
+    "2": [
+      {
+        "topic_id": "COMP365_T03",
+        "title": "Build and evaluate machine learning models using appropriate data and methods.",
+        "hours": 3.0
+      },
+      {
+        "topic_id": "COMP365_T04",
+        "title": "Develop software that applies modern AI techniques.",
+        "hours": 3.0
+      }
+    ],
+    "3": [
+      {
+        "topic_id": "COMP365_T05",
+        "title": "Communicate and evaluate AI solutions through individual and team-based work.",
+        "hours": 3.0
+      }
+    ],
+    "4": [],
+    "5": [],
+    "6": [],
+    "7": [],
+    "8": [],
+    "9": [],
+    "10": [],
+    "11": [],
+    "12": [],
+    "13": [],
+    "14": [],
+    "15": []
+  },
+  "metrics": {
+    "baseline": {
+      "prerequisite_inversion_rate": 0.0,
+      "workload_standard_deviation_hours": 2.0976176963403033
+    },
+    "autostudy": {
+      "prerequisite_inversion_rate": 0.0,
+      "workload_standard_deviation_hours": 2.0976176963403033
+    }
+  }
+}
