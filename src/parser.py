@@ -1,6 +1,6 @@
 import pdfplumber
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import List, Optional, Union
 from pathlib import Path
 
 class CourseMilestone(BaseModel):
@@ -13,7 +13,7 @@ class TopicNode(BaseModel):
     week: int
     prerequisites: List[str] = []
 
-def extract_raw_text(file_path: str) -> str:
+def extract_raw_text(file_path: Union[str, Path]) -> str:
     """Reads raw text from either PDF or TXT files."""
     file_path = Path(file_path)
     if file_path.suffix.lower() == ".pdf":
