@@ -1,26 +1,36 @@
-import re
-from typing import List
-from src.parser import CourseMilestone
+"""
+Baseline Model for Checkpoint 2 Comparison.
+Implements a naive chronological linear scheduler that assumes topics must simply
+be scheduled in the raw order of appearance in the syllabus without topological
+dependency resolution or prerequisite capacity balancing.
+"""
 
-def baseline_extract_milestones(text: str) -> List[CourseMilestone]:
-    """
-    Regex Baseline: Scans text for deadline keywords and date formats.
-    """
-    milestones = []
-    lines = text.split("\n")
-    
-    date_pattern = r"(\b(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\s+\d{1,2}\b|\b\d{1,2}/\d{1,2}\b)"
-    keyword_pattern = r"(exam|midterm|final|quiz|project|assignment|due)"
+from typing import List, Dict, Any
 
-    for line in lines:
-        if re.search(keyword_pattern, line, re.IGNORECASE):
-            date_match = re.search(date_pattern, line, re.IGNORECASE)
-            if date_match:
-                milestones.append(
-                    CourseMilestone(
-                        title=line.strip()[:40],
-                        date_str=date_match.group(1),
-                        weight=0.0
-                    )
-                )
-    return milestones
+class LinearChronologicalBaseline:
+    def __init__(self, weekly_study_capacity_hours: float = 6.0):
+        self.capacity = weekly_study_capacity_hours
+
+    def schedule(self, raw_topics: List[Dict[str, Any]], total_weeks: int = 15) -> Dict[int, List[Dict[str, Any]]]:
+        """
+        Sequentially packs topics into weeks based on order of appearance.
+        Does not check prerequisites or transitive relationships.
+        """
+        schedule = {week: [] for week in range(1, total_weeks + 1)}
+        current_week = 1
+        current_week_hours = 0.0
+
+        for topic in raw_topics:
+            hours = topic.get("estimated_hours", 2.0)
+            if current_week_hours + hours > self.capacity and current_week < total_weeks:
+                current_week += 1
+                current_week_hours = 0.0
+
+            schedule[current_week].append({
+                "topic_id": topic["topic_id"],
+                "title": topic["title"],
+                "hours": hours
+            })
+            current_week_hours += hours
+
+        return schedule
