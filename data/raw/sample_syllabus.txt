@@ -1,0 +1,14 @@
+CS 201: Data Structures and Algorithms
+Fall Semester
+
+Weekly Schedule:
+Week 1: Arrays & Pointers
+Week 2: Linked Lists
+Week 3: Stacks & Queues
+Week 4: Binary Search Trees
+Week 5: Graph Traversal (BFS/DFS)
+
+Key Milestones:
+Assignment 1 Due: Sep 18
+Midterm Exam: Oct 15
+Final Project Due: Dec 04
