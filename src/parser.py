@@ -1,6 +1,7 @@
 import pdfplumber
 from pydantic import BaseModel
 from typing import List, Optional
+from pathlib import Path
 
 class CourseMilestone(BaseModel):
     title: str
@@ -14,7 +15,8 @@ class TopicNode(BaseModel):
 
 def extract_raw_text(file_path: str) -> str:
     """Reads raw text from either PDF or TXT files."""
-    if file_path.endswith(".pdf"):
+    file_path = Path(file_path)
+    if file_path.suffix.lower() == ".pdf":
         full_text = []
         with pdfplumber.open(file_path) as pdf:
             for page in pdf.pages:
@@ -22,7 +24,7 @@ def extract_raw_text(file_path: str) -> str:
                 if text:
                     full_text.append(text)
         return "\n".join(full_text)
-    elif file_path.endswith(".txt"):
+    elif file_path.suffix.lower() == ".txt":
         with open(file_path, "r", encoding="utf-8") as f:
             return f.read()
     else:

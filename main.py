@@ -1,6 +1,7 @@
 from src.parser import extract_raw_text, TopicNode
 from src.baseline import baseline_extract_milestones
 from src.graph_engine import build_prerequisite_dag, get_topological_study_order
+from pathlib import Path
 
 def main():
     print("==============================================")
@@ -8,7 +9,7 @@ def main():
     print("==============================================")
 
     # 1. Read syllabus text and test baseline
-    syllabus_text = extract_raw_text("data/raw/sample_syllabus.txt")
+    syllabus_text = extract_raw_text(Path(__file__).parent / "data/raw/sample_syllabus.txt")
     milestones = baseline_extract_milestones(syllabus_text)
     
     print(f"\n[1] Extracted Milestones (Baseline): {len(milestones)} found")

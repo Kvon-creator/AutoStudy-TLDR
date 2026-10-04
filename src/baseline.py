@@ -6,31 +6,32 @@ dependency resolution or prerequisite capacity balancing.
 """
 
 from typing import List, Dict, Any
+import re
+from src.parser import CourseMilestone
+from src.scheduler import ScheduleAllocator
+
+
+def baseline_extract_milestones(text: str) -> List[CourseMilestone]:
+    """Extract milestone lines containing a month and day."""
+    pattern = re.compile(
+        r"^\s*(?P<title>[^\n:]+):\s*(?P<date>(?:Jan(?:uary)?|Feb(?:ruary)?|"
+        r"Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|"
+        r"Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)"
+        r"\s+\d{1,2}(?:,?\s+\d{4})?)\s*$", re.MULTILINE | re.IGNORECASE)
+    return [CourseMilestone(title=match.group("title").strip(),
+                            date_str=match.group("date"))
+            for match in pattern.finditer(text)]
 
 class LinearChronologicalBaseline:
     def __init__(self, weekly_study_capacity_hours: float = 6.0):
-        self.capacity = weekly_study_capacity_hours
+        self.capacity = ScheduleAllocator(weekly_study_capacity_hours).capacity
 
     def schedule(self, raw_topics: List[Dict[str, Any]], total_weeks: int = 15) -> Dict[int, List[Dict[str, Any]]]:
         """
         Sequentially packs topics into weeks based on order of appearance.
         Does not check prerequisites or transitive relationships.
         """
-        schedule = {week: [] for week in range(1, total_weeks + 1)}
-        current_week = 1
-        current_week_hours = 0.0
-
-        for topic in raw_topics:
-            hours = topic.get("estimated_hours", 2.0)
-            if current_week_hours + hours > self.capacity and current_week < total_weeks:
-                current_week += 1
-                current_week_hours = 0.0
-
-            schedule[current_week].append({
-                "topic_id": topic["topic_id"],
-                "title": topic["title"],
-                "hours": hours
-            })
-            current_week_hours += hours
-
-        return schedule
+        # Preserve raw order without resolving prerequisites or deadlines.
+        topics = [{key: value for key, value in topic.items() if key != "deadline_week"}
+                  for topic in raw_topics]
+        return ScheduleAllocator(self.capacity).allocate(topics, total_weeks)
