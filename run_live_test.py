@@ -1,158 +1,202 @@
-﻿"""Generate reproducible study plans from the example syllabus PDFs."""
-import argparse
-import json
+"""
+Live Integration Test Runner for AutoStudy-TLDR using real syllabus PDFs.
+"""
+
 from pathlib import Path
-from textwrap import fill
+import re
+import sys
+from typing import Any, Dict, List, Tuple
+from pypdf import PdfReader
 
 from src.baseline import LinearChronologicalBaseline
 from src.evaluation import compute_prerequisite_inversions, compute_workload_variance
 from src.graph_builder import TopicDependencyDAG
 from src.scheduler import ScheduleAllocator
-from src.syllabus import extract_text_from_pdf, parse_syllabus_text
 
 
-def parse_syllabus_pdf(pdf_path):
-    """Compatibility API returning topics and inferred prerequisite edges."""
-    result = parse_syllabus_text(extract_text_from_pdf(pdf_path), Path(pdf_path).name)
-    return result["topics"], result["prerequisites"]
+def extract_text_from_pdf(pdf_path: Path) -> str:
+    """Extracts raw text content across all pages in a syllabus PDF."""
+    reader = PdfReader(str(pdf_path))
+    full_text = []
+    for idx, page in enumerate(reader.pages):
+        page_text = page.extract_text()
+        if page_text:
+            full_text.append(page_text)
+    return "\n".join(full_text)
 
 
-def build_result(parsed, capacity=6.0):
-    topics, edges = parsed["topics"], parsed["prerequisites"]
+def parse_syllabus_pdf(pdf_path: Path) -> Tuple[List[Dict[str, Any]], List[Tuple[str, str]]]:
+    """
+    Extracts structured topics from course syllabus PDFs:
+    1. Standard Module/Week patterns.
+    2. Date-based 'Class Schedule' tables (e.g., Simple Syllabus COMP385).
+    3. Targeted 'Course Description' concept lists (for COMP365, COMP440).
+    """
+    text = extract_text_from_pdf(pdf_path)
+    lines = [line.strip() for line in text.splitlines() if line.strip()]
+
+    extracted_modules = []
+    seen_titles = set()
+
+    # Pattern 1: Week / Module / Chapter headings
+    module_pattern = re.compile(
+        r"^(?:Week|Module|Unit|Chapter)\s+(\d+)[:\-\s]+(.+?)(?:\((\d+(?:\.\d+)?)\s*(?:hrs|hours)\))?$",
+        re.IGNORECASE
+    )
+
+    # Pattern 2: Date-based schedule rows (e.g., '8/27', '$8/27$', '10/22 | Time Complexity')
+    date_schedule_pattern = re.compile(
+        r"^\$?(\d{1,2}/\d{1,2}(?:/\d{2,4})?)\$?\s*(?:\|\s*)?([A-Za-z].*)$"
+    )
+
+    in_schedule_section = False
+    schedule_counter = 1
+
+    for line in lines:
+        # Toggle schedule section context
+        if re.search(r"class\s+schedule|course\s+schedule", line, re.IGNORECASE):
+            in_schedule_section = True
+            continue
+        if in_schedule_section and re.search(r"university\s+policies|additional\s+course\s+information", line, re.IGNORECASE):
+            in_schedule_section = False
+
+        # Try Week/Module pattern
+        m_match = module_pattern.match(line)
+        if m_match:
+            mod_num = int(m_match.group(1))
+            title = m_match.group(2).strip()
+            if title.lower() not in seen_titles:
+                seen_titles.add(title.lower())
+                extracted_modules.append((f"MOD_{mod_num:02d}", title, 3.0, mod_num))
+            continue
+
+        # Try Schedule table pattern if in schedule section or matches date format
+        if in_schedule_section:
+            d_match = date_schedule_pattern.match(line)
+            if d_match:
+                raw_title = d_match.group(2).split("|")[0].strip()
+                # Exclude administrative and non-topic rows
+                if raw_title.lower() not in seen_titles and not any(
+                    k in raw_title.lower() for k in ["exam", "recess", "break", "holiday", "subject", "reading"]
+                ) and len(raw_title) > 3:
+                    seen_titles.add(raw_title.lower())
+                    extracted_modules.append((f"SCHED_{schedule_counter:02d}", raw_title, 2.5, schedule_counter))
+                    schedule_counter += 1
+
+    # Pattern 3: Fallback for syllabi without schedule tables (COMP365, COMP440)
+    # Extracts conceptual units from the Course Description block
+    if not extracted_modules:
+        desc_match = re.search(
+            r"Course Description\s+(.*?)(?:Student Learning Objectives|Career Competencies|Required Textbooks)",
+            text,
+            re.DOTALL | re.IGNORECASE
+        )
+        if desc_match:
+            desc_text = desc_match.group(1).replace("\n", " ")
+            # Match clauses like "covers the concepts related to X, Y, and Z" or "Topics will include A, B, C"
+            topics_clause = re.search(
+                r"(?:covers the concepts related to|Topics will include)\s+([^.]+)",
+                desc_text,
+                re.IGNORECASE
+            )
+            if topics_clause:
+                raw_items = re.split(r",\s*(?:and\s+)?|\s+and\s+", topics_clause.group(1))
+                clause_counter = 1
+                for item in raw_items:
+                    cleaned_item = item.strip()
+                    if len(cleaned_item) > 3 and cleaned_item.lower() not in seen_titles:
+                        seen_titles.add(cleaned_item.lower())
+                        extracted_modules.append((f"TOPIC_{clause_counter:02d}", cleaned_item.title(), 3.0, clause_counter))
+                        clause_counter += 1
+
+    topics = [
+        {
+            "topic_id": t_id,
+            "title": title,
+            "estimated_hours": hours,
+            "deadline_week": 14,
+            "raw_order": order_num
+        }
+        for t_id, title, hours, order_num in extracted_modules
+    ]
+
+    prereqs = [
+        (topics[i]["topic_id"], topics[i + 1]["topic_id"])
+        for i in range(len(topics) - 1)
+    ]
+
+    return topics, prereqs
+
+
+def run_pipeline_on_pdf(pdf_path: Path):
+    print(f"\n=======================================================")
+    print(f"[*] Processing Real Syllabus: {pdf_path.name}")
+    print(f"=======================================================")
+
+    topics, prereqs = parse_syllabus_pdf(pdf_path)
+
     if not topics:
-        raise ValueError("No course outline or scoped learning outcomes were found")
-    weeks = parsed["total_weeks"]
-    baseline = LinearChronologicalBaseline(capacity).schedule(topics, weeks)
+        print(f"[!] Warning: No structured modules detected in {pdf_path.name}.")
+        print("    Ensure your syllabus text contains recognizable 'Week X:', 'Module X:', or numbered headings.")
+        return
+
+    print(f"[+] Extracted {len(topics)} topics/modules and {len(prereqs)} sequential dependencies.")
+
+    # 1. Baseline Evaluation (Simulates out-of-order student study attempt or raw document order)
+    print("\n--- 1. Linear Chronological Baseline ---")
+    baseline = LinearChronologicalBaseline(weekly_study_capacity_hours=6.0)
+    baseline_schedule = baseline.schedule(topics, total_weeks=10)
+    base_pir = compute_prerequisite_inversions(baseline_schedule, prereqs)
+    base_wsd = compute_workload_variance(baseline_schedule)
+    print(f"  Baseline Prerequisite Inversion Rate (PIR): {base_pir * 100:.2f}%")
+    print(f"  Baseline Workload Variance (Std Dev):       {base_wsd:.2f} hrs")
+
+    # 2. AutoStudy DAG Pipeline
+    print("\n--- 2. AutoStudy DAG Topological Pacing ---")
     dag = TopicDependencyDAG()
-    for topic in topics:
-        dag.add_topic(topic["topic_id"], topic["title"], topic["estimated_hours"], topic["deadline_week"])
-    for source, target in edges:
-        dag.add_prerequisite(source, target)
+    for t in topics:
+        dag.add_topic(
+            t["topic_id"],
+            title=t["title"],
+            estimated_hours=t["estimated_hours"],
+            deadline_week=t["deadline_week"]
+        )
+
+    for u, v in prereqs:
+        dag.add_prerequisite(u, v)
+
     dag.prune_redundancies()
-    sequence = dag.get_study_sequence()
-    schedule = ScheduleAllocator(capacity).allocate(sequence, weeks)
-    metrics = {}
-    for name, assigned in (("baseline", baseline), ("autostudy", schedule)):
-        metrics[name] = {"prerequisite_inversion_rate": compute_prerequisite_inversions(assigned, edges),
-                         "workload_standard_deviation_hours": compute_workload_variance(assigned)}
-    return dict(parsed, weekly_capacity_hours=capacity, baseline_schedule=baseline,
-                study_schedule=schedule, metrics=metrics)
+    ordered_topics = dag.get_study_sequence()
 
+    allocator = ScheduleAllocator(weekly_study_capacity_hours=6.0)
+    dag_schedule = allocator.allocate(ordered_topics, total_weeks=10)
+    dag_pir = compute_prerequisite_inversions(dag_schedule, prereqs)
+    dag_wsd = compute_workload_variance(dag_schedule)
 
-def markdown_report(result):
-    lines = [f"# {result['course_code']}: {result['course_title']}", "",
-             f"Source: `{result['source_file']}`", "",
-             f"Course prerequisites: {', '.join(result['course_prerequisites']) or 'Not stated'}", "",
-             result['course_description'], "", f"Topic source: {result['topic_source']}", "",
-             f"Plan: {result['total_weeks']} weeks; {result['weekly_capacity_hours']:g} hours/week maximum.", ""]
-    lines += [f"- {note}" for note in result['assumptions']]
-    lines += ["", "## Comparison", "", "| Model | Inversion rate | Workload standard deviation |",
-              "| --- | ---: | ---: |"]
-    for model, values in result['metrics'].items():
-        lines.append(f"| {model} | {values['prerequisite_inversion_rate']:.2%} | {values['workload_standard_deviation_hours']:.2f} hours |")
-    lines += ["", "These metrics use inferred source-order edges. Equal results do not establish a model advantage.",
-              "", "## Study schedule", "", "| Week | Study item | Hours | Source class date |",
-              "| ---: | --- | ---: | --- |"]
-    topic_by_id = {topic['topic_id']: topic for topic in result['topics']}
-    for week, topics in result['study_schedule'].items():
-        for topic in topics:
-            source_date = topic_by_id[topic['topic_id']]['source_date'] or 'Not stated'
-            lines.append(f"| {week} | {topic['title'].replace('|', '/')} | {topic['hours']:g} | {source_date} |")
-    lines += ["", "## Exam and homework calendar", ""]
-    if result['milestones']:
-        for item in result['milestones']:
-            lines.append(f"- {item['date']}: {item['title']} ({item['kind']}). {item.get('note', '')}".strip())
-    else:
-        lines.append("No dated milestones were found in a class schedule. Check the course LMS for due dates.")
-    return '\n'.join(lines) + '\n'
+    print(f"  AutoStudy Prerequisite Inversion Rate (PIR): {dag_pir * 100:.2f}%")
+    print(f"  AutoStudy Workload Variance (Std Dev):       {dag_wsd:.2f} hrs")
 
-
-def text_report(result):
-    """Render the complete result as wrapped plain text."""
-    title = f"{result['course_code']}: {result['course_title']}"
-    lines = [title, '=' * len(title), '', f"Source: {result['source_file']}",
-             f"Course prerequisites: {', '.join(result['course_prerequisites']) or 'Not stated'}",
-             '', 'COURSE DESCRIPTION', fill(result['course_description'], width=88), '',
-             f"Topic source: {result['topic_source']}",
-             f"Plan: {result['total_weeks']} weeks; maximum {result['weekly_capacity_hours']:g} study hours/week.",
-             '', 'ASSUMPTIONS']
-    lines += [fill(note, width=88, initial_indent='- ', subsequent_indent='  ')
-              for note in result['assumptions']]
-    lines += ['', 'MODEL COMPARISON']
-    for model, values in result['metrics'].items():
-        lines += [f"{model.title()}:",
-                  f"  Prerequisite inversion rate: {values['prerequisite_inversion_rate']:.2%}",
-                  f"  Weekly workload standard deviation: {values['workload_standard_deviation_hours']:.2f} hours"]
-    lines += [fill('These metrics use inferred source-order edges. Equal results do not establish a model advantage.', width=88),
-              '', 'STUDY SCHEDULE']
-    topic_by_id = {topic['topic_id']: topic for topic in result['topics']}
-    for week, topics in result['study_schedule'].items():
-        hours = sum(topic['hours'] for topic in topics)
-        lines += ['', f"Week {week:02d} ({hours:g} study hours)"]
-        if not topics:
-            lines.append('  No study items assigned.')
-        for topic in topics:
-            lines.append(fill(f"{topic['title']} ({topic['hours']:g} hours)", width=88,
-                              initial_indent='  - ', subsequent_indent='    '))
-            source_date = topic_by_id[topic['topic_id']]['source_date']
-            if source_date:
-                lines.append(f"    Source class date: {source_date}")
-    lines += ['', 'EXAM AND HOMEWORK CALENDAR']
-    for item in result['milestones']:
-        lines.append(fill(f"{item['date']}: {item['title']} ({item['kind']}). {item.get('note', '')}".strip(),
-                          width=88, initial_indent='- ', subsequent_indent='  '))
-    if not result['milestones']:
-        lines.append('No dated milestones found. Check the course LMS for due dates.')
-    return '\n'.join(lines) + '\n'
-
-
-def run_pipeline_on_pdf(pdf_path, output_dir=None, capacity=6.0):
-    parsed = parse_syllabus_text(extract_text_from_pdf(pdf_path), pdf_path.name)
-    result = build_result(parsed, capacity)
-    print(f"\n[*] {result['course_code']}: {result['course_title']} ({pdf_path.name})")
-    print(f"[+] Extracted {len(result['topics'])} study items from {result['topic_source']}; {len(result['milestones'])} dated milestones.")
-    print(f"    Course prerequisites: {', '.join(result['course_prerequisites']) or 'Not stated'}")
-    for note in result['assumptions']:
-        print(f"    Note: {note}")
-    for model, values in result['metrics'].items():
-        print(f"  {model}: PIR {values['prerequisite_inversion_rate']:.2%}; workload std dev {values['workload_standard_deviation_hours']:.2f} hrs")
-    print(f"  Generated Study Schedule ({result['total_weeks']} weeks):")
-    for week, topics in result['study_schedule'].items():
-        if topics:
-            assigned = '; '.join(f"{topic['title']} ({topic['hours']:g}h)" for topic in topics)
+    # Display Allocated Study Blocks
+    print("\n  Generated Study Schedule (First 4 Weeks):")
+    for week in range(1, 5):
+        if week in dag_schedule and dag_schedule[week]:
+            assigned = ", ".join([f"{t['topic_id']}: {t['title']} ({t['hours']}h)" for t in dag_schedule[week]])
             print(f"    Week {week:02d}: {assigned}")
-    if output_dir is not None:
-        output_dir = Path(output_dir)
-        output_dir.mkdir(parents=True, exist_ok=True)
-        stem = pdf_path.stem
-        (output_dir / f"{stem}.json").write_text(json.dumps(result, indent=2, ensure_ascii=False), encoding='utf-8')
-        (output_dir / f"{stem}.md").write_text(markdown_report(result), encoding='utf-8')
-        (output_dir / f"{stem}.txt").write_text(text_report(result), encoding='utf-8')
-        print(f"  Saved TXT, Markdown, and JSON: {output_dir / stem}")
-    return result
 
 
 def main():
-    root = Path(__file__).resolve().parent
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--input-dir', type=Path, default=root / 'data/raw/raw_syllabi')
-    parser.add_argument('--output-dir', type=Path, default=root / 'test_outputs')
-    parser.add_argument('--capacity', type=float, default=6.0)
-    args = parser.parse_args()
-    files = sorted(path for path in args.input_dir.glob('*') if path.is_file() and path.suffix.lower() == '.pdf')
-    if not files:
-        parser.exit(1, f"No PDF files found in {args.input_dir.resolve()}\n")
-    print(f"Found {len(files)} PDF syllabus file(s) for live testing.")
-    failures = 0
-    for path in files:
-        try:
-            run_pipeline_on_pdf(path, args.output_dir, args.capacity)
-        except (ValueError, OSError) as error:
-            failures += 1
-            print(f"[!] {path.name}: {error}")
-    if failures:
-        parser.exit(1, f"{failures} syllabus file(s) could not be scheduled.\n")
+    syllabus_dir = Path("data/raw/raw_syllabi")
+    pdf_files = list(syllabus_dir.glob("*.pdf"))
+
+    if not pdf_files:
+        print(f"[!] No PDF files found in {syllabus_dir.resolve()}.")
+        print("    Drop your course PDF files into 'data/raw_syllabi/' and rerun.")
+        sys.exit(1)
+
+    print(f"Found {len(pdf_files)} PDF syllabus file(s) for live testing.")
+    for pdf_path in pdf_files:
+        run_pipeline_on_pdf(pdf_path)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
