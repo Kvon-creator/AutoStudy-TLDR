@@ -7,6 +7,7 @@ from typing import Any, Dict, List, Optional, Tuple, Union, cast
 
 from src.baseline import LinearChronologicalBaseline
 from src.evaluation import compute_prerequisite_inversions, compute_workload_variance
+from src.exporters import export_schedule_to_ics, export_schedule_to_pdf
 from src.graph_builder import TopicDependencyDAG
 from src.scheduler import ScheduleAllocator
 from src.syllabus import extract_text_from_pdf, parse_syllabus_text
@@ -153,7 +154,9 @@ def run_pipeline_on_pdf(
         (out_path / f"{stem}.json").write_text(json.dumps(result, indent=2, ensure_ascii=False), encoding='utf-8')
         (out_path / f"{stem}.md").write_text(markdown_report(result), encoding='utf-8')
         (out_path / f"{stem}.txt").write_text(text_report(result), encoding='utf-8')
-        print(f"  Saved TXT, Markdown, and JSON: {out_path / stem}")
+        export_schedule_to_ics(result, out_path / f"{stem}.ics")
+        export_schedule_to_pdf(result, out_path / f"{stem}.pdf")
+        print(f"  Saved TXT, Markdown, JSON, ICS, and PDF: {out_path / stem}")
     return result
 
 

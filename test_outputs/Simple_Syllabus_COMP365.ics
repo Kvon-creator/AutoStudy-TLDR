@@ -1,0 +1,67 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//AutoStudy-TLDR//Study Schedule Generator//EN
+CALSCALE:GREGORIAN
+X-WR-CALNAME:COMP365 Study Schedule
+X-WR-TIMEZONE:UTC
+BEGIN:VEVENT
+SUMMARY:[Study] COMP365: Explain foundational concepts in artificial intel
+ ligence and machine learning.
+DTSTART:20261017T180000
+DTEND:20261017T210000
+DTSTAMP:20261016T171042Z
+UID:742b3562-28ae-538d-a91b-638ed6988706
+CATEGORIES:STUDY,EDUCATION
+DESCRIPTION:Course: COMP365 - AI and Machine Learning\nTopic: Explain foun
+ dational concepts in artificial intelligence and machine learning.\nTopic 
+ ID: COMP365_T01\nAllocated Study Time: 3 hours\nCurriculum Week: 1
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[Study] COMP365: Apply search and reasoning methods to solve compu
+ tational problems.
+DTSTART:20261019T180000
+DTEND:20261019T210000
+DTSTAMP:20261016T171042Z
+UID:96026aab-c39e-5fc1-ae72-a3c626f6c4b2
+CATEGORIES:STUDY,EDUCATION
+DESCRIPTION:Course: COMP365 - AI and Machine Learning\nTopic: Apply search
+  and reasoning methods to solve computational problems.\nTopic ID: COMP365
+ _T02\nAllocated Study Time: 3 hours\nCurriculum Week: 1
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[Study] COMP365: Build and evaluate machine learning models using 
+ appropriate data and methods.
+DTSTART:20261024T180000
+DTEND:20261024T210000
+DTSTAMP:20261016T171042Z
+UID:5294951b-b8d6-57ed-be94-8064d336cfa2
+CATEGORIES:STUDY,EDUCATION
+DESCRIPTION:Course: COMP365 - AI and Machine Learning\nTopic: Build and ev
+ aluate machine learning models using appropriate data and methods.\nTopic 
+ ID: COMP365_T03\nAllocated Study Time: 3 hours\nCurriculum Week: 2
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[Study] COMP365: Develop software that applies modern AI technique
+ s.
+DTSTART:20261026T180000
+DTEND:20261026T210000
+DTSTAMP:20261016T171042Z
+UID:60e19cc2-f111-55dc-872c-d21324fdeef4
+CATEGORIES:STUDY,EDUCATION
+DESCRIPTION:Course: COMP365 - AI and Machine Learning\nTopic: Develop soft
+ ware that applies modern AI techniques.\nTopic ID: COMP365_T04\nAllocated 
+ Study Time: 3 hours\nCurriculum Week: 2
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[Study] COMP365: Communicate and evaluate AI solutions through ind
+ ividual and team-based work.
+DTSTART:20261031T180000
+DTEND:20261031T210000
+DTSTAMP:20261016T171042Z
+UID:3f744cf5-0121-5c8b-bcdf-878d77469a7f
+CATEGORIES:STUDY,EDUCATION
+DESCRIPTION:Course: COMP365 - AI and Machine Learning\nTopic: Communicate 
+ and evaluate AI solutions through individual and team-based work.\nTopic I
+ D: COMP365_T05\nAllocated Study Time: 3 hours\nCurriculum Week: 3
+END:VEVENT
+END:VCALENDAR
