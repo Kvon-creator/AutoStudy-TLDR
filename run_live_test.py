@@ -124,11 +124,19 @@ def text_report(result: Dict[str, Any]) -> str:
     return '\n'.join(lines) + '\n'
 
 
-def run_pipeline_on_pdf(
+DEFAULT_OUTPUT_DIR = Path(__file__).resolve().parent / "test_outputs"
+
+
+def schedule_syllabus(
     pdf_path: Union[str, Path],
-    output_dir: Optional[Union[str, Path]] = None,
-    capacity: float = 6.0
+    output_dir: Union[str, Path] = DEFAULT_OUTPUT_DIR,
+    capacity: float = 6.0,
+    export_files: bool = True,
 ) -> Dict[str, Any]:
+    """
+    Standard function to process a course syllabus PDF, perform topological scheduling,
+    and produce output files (.pdf, .ics, .json, .md, .txt) by default.
+    """
     path = Path(pdf_path)
     parsed = parse_syllabus_text(extract_text_from_pdf(path), path.name)
     result = build_result(parsed, capacity)
@@ -147,7 +155,8 @@ def run_pipeline_on_pdf(
         if assigned_topics:
             assigned = '; '.join(f"{topic['title']} ({topic['hours']:g}h)" for topic in assigned_topics)
             print(f"    Week {week:02d}: {assigned}")
-    if output_dir is not None:
+
+    if export_files and output_dir is not None:
         out_path = Path(output_dir)
         out_path.mkdir(parents=True, exist_ok=True)
         stem = path.stem
@@ -158,6 +167,16 @@ def run_pipeline_on_pdf(
         export_schedule_to_pdf(result, out_path / f"{stem}.pdf")
         print(f"  Saved TXT, Markdown, JSON, ICS, and PDF: {out_path / stem}")
     return result
+
+
+def run_pipeline_on_pdf(
+    pdf_path: Union[str, Path],
+    output_dir: Optional[Union[str, Path]] = DEFAULT_OUTPUT_DIR,
+    capacity: float = 6.0
+) -> Dict[str, Any]:
+    """Compatibility runner function that processes a syllabus PDF and generates all outputs by default."""
+    target_dir = output_dir if output_dir is not None else DEFAULT_OUTPUT_DIR
+    return schedule_syllabus(pdf_path, output_dir=target_dir, capacity=capacity, export_files=True)
 
 
 def main():
